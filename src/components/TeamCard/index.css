@@ -1,0 +1,29 @@
+.card-link {
+  text-decoration: none;
+}
+.card-container {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  border: 1px solid white;
+  border-radius: 16px;
+  padding: 8px;
+  width: 230px;
+  height: 100px;
+  background-color: rgba(255, 255, 255, 0.11);
+  backdrop-filter: blur(10px);
+}
+.card-container img {
+  width: 50px;
+}
+.card-container p {
+  font-size: 18px;
+  color: white;
+  font-weight: 600;
+}
+@media (min-width: 768px) {
+  .card-container {
+    width: 250px;
+    height: 120px;
+  }
+}

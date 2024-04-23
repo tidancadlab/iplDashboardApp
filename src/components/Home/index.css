@@ -1,0 +1,43 @@
+/* Write your CSS here */
+.home_main {
+  background-image: url('https://assets.ccbp.in/frontend/react-js/ipl-dashboard-sm-bg.png');
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+  font-family: 'Bree Serif';
+  text-align: center;
+}
+.heading img {
+  width: 24px;
+}
+.card-main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  max-width: 600px;
+  margin: auto;
+}
+@media (min-width: 768px) {
+  .home_main {
+    background-image: url('https://assets.ccbp.in/frontend/react-js/ipl-dashboard-lg-bg.png');
+  }
+  .heading {
+    font-size: 34px;
+  }
+  .heading img {
+    width: 34px;
+  }
+}
