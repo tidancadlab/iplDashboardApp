@@ -5,8 +5,39 @@ import Loader from 'react-loader-spinner'
 import LatestMatch from '../LatestMatch'
 import MatchCard from '../MatchCard'
 import './index.css'
+import {Cell, Pie, PieChart} from 'recharts'
 
-const TeamMatches = ({match}) => {
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']
+const RADIAN = Math.PI / 180
+const renderCustomizedLabel = ({
+  cx,
+  cy,
+  midAngle,
+  innerRadius,
+  outerRadius,
+  percent,
+  name,
+  value,
+  index,
+}) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5
+  const x = cx + radius * Math.cos(-midAngle * RADIAN)
+  const y = cy + radius * Math.sin(-midAngle * RADIAN)
+
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="white"
+      textAnchor={x > cx ? 'start' : 'end'}
+      dominantBaseline="central"
+    >
+      {name} : {value}
+    </text>
+  )
+}
+
+const TeamMatches = ({match, history}) => {
   const {id} = match.params
   const [data, setData] = useState({})
   const [isLoading, setIsLoading] = useState(true)
@@ -48,7 +79,20 @@ const TeamMatches = ({match}) => {
   useEffect(() => {
     getData()
   }, [])
+  const chartData = data.recentMatches?.reduce(
+    (items, item) => ({
+      ...items,
+      [item.matchStatus]: items[item.matchStatus] + 1,
+    }),
+    {Won: 0, Lost: 0, Draw: 0},
+  )
 
+  const chartDataList =
+    chartData &&
+    Object.entries(chartData).map(v => ({
+      name: v[0],
+      value: v[1],
+    }))
   return (
     <div className="match_main">
       {isLoading ? (
@@ -57,6 +101,9 @@ const TeamMatches = ({match}) => {
         </div>
       ) : (
         <div className="match-container">
+          <button onClick={() => history.push('/')} className="back-btn">
+            Back
+          </button>
           <img src={data.teamBannerUrl} alt="team banner" />
           <p className="text-white">Latest Match</p>
           <LatestMatch
@@ -68,6 +115,25 @@ const TeamMatches = ({match}) => {
               <MatchCard data={v} key={v.id} />
             ))}
           </ul>
+          <PieChart width={730} height={250}>
+            <Pie
+              data={chartDataList}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={100}
+              fill="#e1f00e"
+              label={e => renderCustomizedLabel(e)}
+            >
+              {chartDataList.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+          </PieChart>
         </div>
       )}
     </div>

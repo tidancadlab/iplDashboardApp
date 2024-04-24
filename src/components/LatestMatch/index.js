@@ -9,7 +9,11 @@ const LatestMatch = ({data}) => (
         <p className="match_location">{data.venue}</p>
         <p className="match_status">{data.result}</p>
       </div>
-      <img className="team_logo" src={data.competingTeamLogo} alt={`latest match ${data.competingTeam}`} />
+      <img
+        className="team_logo"
+        src={data.competingTeamLogo}
+        alt={`latest match ${data.competingTeam}`}
+      />
     </div>
     <div className="card_right">
       <p className="name">First Innings</p>

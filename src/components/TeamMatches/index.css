@@ -30,3 +30,13 @@ img {
   text-align: start;
   align-self: stretch;
 }
+.back-btn {
+  border: none;
+  background-color: black;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  align-self: self-start;
+  margin-bottom: 16px;
+}
